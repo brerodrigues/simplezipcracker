@@ -1,4 +1,6 @@
-class ZipCracker:
+#!/usr/bin/env python3
+
+class ZipCracker(object):
 
     def crack_zip(self, zip_file, wordlist):
         pass
