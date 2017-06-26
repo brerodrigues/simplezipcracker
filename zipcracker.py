@@ -2,7 +2,7 @@
 
 class ZipCracker(object):
 
-    def __init__(self, zip_file, word_list=None):
+    def __init__(self, zip_file, word_list):
         #self.zip_file = self.open_zip_file(zip_file)
         self.zip_file = zip_file
         self.word_list = self.open_word_list(word_list)
@@ -11,6 +11,18 @@ class ZipCracker(object):
         pass
 
     def open_word_list(self, word_list):
-        wordlist_file = open(word_list, 'r')
-        wordlist = wordlist_file.read().split('\n')
-        return wordlist
+        try:
+            wordlist_file = open(word_list, 'r')
+        except FileNotFoundError:
+            return(False, 'File {} not found!'.format(word_list))
+        except PermissionError:
+            return(False, 'You don\'t have permission to read the file {}'.format(word_list))
+        #Letting other expections happen for test purposes
+        #except:
+        #    return(False, 'Unknow error when opening the {} file'.format(word_list))
+        else:
+            wordlist = wordlist_file.read().split('\n')
+            return (True, wordlist)
+
+        
+
