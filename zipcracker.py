@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import zipfile
+
 class ZipCracker(object):
 
     def __init__(self, zip_file, word_list):
@@ -8,6 +10,9 @@ class ZipCracker(object):
         self.word_list = self.open_word_list(word_list)
 
     def crack_zip(self, zip_file, wordlist):
+        pass
+
+    def open_zip(self, zip_file):
         pass
 
     def open_word_list(self, word_list):
@@ -23,6 +28,3 @@ class ZipCracker(object):
         else:
             wordlist = wordlist_file.read().split('\n')
             return (True, wordlist)
-
-        
-
