@@ -11,11 +11,20 @@ class ZipCracker(object):
     def crack_zip(self, zip_file, wordlist):
         pass
 
-    def process_zip(self, zip_file):
-        if zipfile.is_zipfile(zip_file):
-            return(True, zip_file)
+    def process_zip(self, zip_file_name):
+        if zipfile.is_zipfile(zip_file_name):
+            # Creating object zipfile
+            zip_file = zipfile.ZipFile(zip_file_name)
+            # Trying to read the files
+            try:
+                zip_file.testzip()
+            except RuntimeError as e:
+                if 'encrypted' in str(e):
+                    return(True, zip_file)
+            else:
+                return(False, '{} is not enctrypted'.format(zip_file_name))
         else:
-            return(False, '{} is not a valid zip file!'.format(zip_file))
+            return(False, '{} is not a valid zip file or is not acessible'.format(zip_file_name))
 
     def process_word_list(self, word_list):
         try:
