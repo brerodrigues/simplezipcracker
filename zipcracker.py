@@ -8,7 +8,7 @@ class ZipCracker(object):
         self.zip_file = self.process_zip(zip_file)
         self.word_list = self.process_word_list(word_list)
 
-    def crack_zip(self, zip_file, wordlist):
+    def crack_zip(self):
         pass
 
     def process_zip(self, zip_file_name):
