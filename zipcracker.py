@@ -9,7 +9,26 @@ class ZipCracker(object):
         self.word_list = self.process_word_list(word_list)
 
     def crack_zip(self):
-        pass
+        # Checking if is everything ok with wordlist and zip
+        if self.word_list[0] and self.zip_file[0] is True:
+            word_list = self.word_list[1]
+            zip_file = self.zip_file[1]
+            for word in word_list:
+                try:
+                    zip_file.extractall(pwd=word.encode('utf-8'))
+                # extractall() will raise a 'RuntimeError' exception if pwd
+                # is incorrect, so i'm checking if 'Bad password' is found on
+                # the exception to controll the flow
+                except RuntimeError as e:
+                    if 'Bad password' in str(e):
+                        print('Tried the passowrd \'{}\' and failed'.format(word))
+                else:
+                    print('Tried the password \'{}\' and succeed!'.format(word))
+                    return(True, word)
+            # for ended, all words tested
+            return(False, 'Password not found')
+        else:
+            return(False, 'Something is wrong with the zip or wordlist')
 
     def process_zip(self, zip_file_name):
         # Checks if is a valid zip using magic number and if is acessible
