@@ -12,17 +12,22 @@ class ZipCracker(object):
         pass
 
     def process_zip(self, zip_file_name):
+        # Checks if is a valid zip using magic number and if is acessible
         if zipfile.is_zipfile(zip_file_name):
-            # Creating object zipfile
+            # Creating object zipfile to make checks
             zip_file = zipfile.ZipFile(zip_file_name)
             # Trying to read the files
             try:
-                zip_file.testzip()
+                # If testzip() returns something, the zip is damaged
+                if zip_file.testzip() is not None:
+                    return(False, '{} is damaged'.format(zip_file_name))
+            # If testzip() raises a exception, check if 'encrypted' can
+            # be found on the description
             except RuntimeError as e:
                 if 'encrypted' in str(e):
                     return(True, zip_file)
-            else:
-                return(False, '{} is not enctrypted'.format(zip_file_name))
+                else:
+                    return(False, '{} is not enctrypted'.format(zip_file_name))
         else:
             return(False, '{} is not a valid zip file or is not acessible'.format(zip_file_name))
 
