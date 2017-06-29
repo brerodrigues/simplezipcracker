@@ -22,6 +22,9 @@ class ZipCracker(object):
                 except RuntimeError as e:
                     if 'Bad password' in str(e):
                         print('Tried the passowrd \'{}\' and failed'.format(word))
+                # Ignoring others exceptions
+                except:
+                    pass
                 else:
                     print('Tried the password \'{}\' and succeed!'.format(word))
                     return(True, word)
