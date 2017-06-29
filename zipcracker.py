@@ -57,7 +57,7 @@ class ZipCracker(object):
         try:
             wordlist_file = open(word_list, 'r')
         except FileNotFoundError:
-            return(False, 'File {} not found!'.format(word_list))
+            return(False, 'Wordlist {} not found!'.format(word_list))
         except PermissionError:
             return(False, 'You don\'t have permission to read the file {}'.format(word_list))
         #Letting other expections happen for test purposes
