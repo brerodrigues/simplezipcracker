@@ -32,8 +32,9 @@ class ZipCracker(object):
             return(False, 'Password not found')
         else:
             return(False, 'Something is wrong with the zip or wordlist')
-
-    def process_zip(self, zip_file_name):
+    
+    @staticmethod
+    def process_zip(zip_file_name):
         # Checks if is a valid zip using magic number and if is acessible
         if zipfile.is_zipfile(zip_file_name):
             # Creating object zipfile to make checks
@@ -53,7 +54,8 @@ class ZipCracker(object):
         else:
             return(False, '{} is not a valid zip file or is not acessible'.format(zip_file_name))
 
-    def process_word_list(self, word_list):
+    @staticmethod
+    def process_word_list(word_list):
         try:
             wordlist_file = open(word_list, 'r')
         except FileNotFoundError:
